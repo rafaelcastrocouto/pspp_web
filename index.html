@@ -62,8 +62,12 @@
             border: 1px solid var(--pspp-border-dark);
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
             z-index: 1000;
-            min-width: 200px;
+            min-width: 220px;
             color: black;
+        }
+
+        .dropdown-menu.show {
+            display: block;
         }
 
         .dropdown-menu div {
@@ -71,6 +75,7 @@
             cursor: pointer;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .dropdown-menu div:hover {
@@ -132,6 +137,7 @@
             flex-direction: column;
             overflow: hidden;
             background: #ffffff;
+            position: relative;
         }
 
         .view-tab-buttons {
@@ -173,6 +179,7 @@
             background: white;
             font-family: monospace;
             font-size: 12px;
+            width: 100%;
         }
 
         .pspp-table th {
@@ -371,109 +378,119 @@
     <!-- TOP MENU BAR -->
     <div class="pspp-menu-bar">
         <!-- FILE -->
-        <div class="menu-item" onclick="toggleMenu('file-menu')">File
+        <div class="menu-item" onclick="toggleMenu('file-menu', event)"><span data-i18n="file">File</span>
             <div id="file-menu" class="dropdown-menu">
-                <div onclick="newDataset()">New Dataset</div>
-                <div onclick="importCSVTrigger()">Open File (CSV/JSON)...</div>
-                <div onclick="openSampleDatasetModal()">Sample Datasets...</div>
+                <div onclick="newDataset()" data-i18n="newDataset">New Dataset</div>
+                <div onclick="importCSVTrigger()" data-i18n="openFile">Open File (CSV/JSON)...</div>
+                <div onclick="openSampleDatasetModal()" data-i18n="sampleDatasets">Sample Datasets...</div>
                 <div class="dropdown-divider"></div>
-                <div onclick="exportCSV()">Save Data (CSV)</div>
-                <div onclick="exportJSON()">Save Data (JSON)</div>
-                <div onclick="exportOutputHTML()">Export Output (HTML)</div>
+                <div onclick="exportCSV()" data-i18n="saveCSV">Save Data (CSV)</div>
+                <div onclick="exportJSON()" data-i18n="saveJSON">Save Data (JSON)</div>
+                <div onclick="exportOutputHTML()" data-i18n="exportHTML">Export Output (HTML)</div>
                 <div class="dropdown-divider"></div>
-                <div onclick="printOutput()">Print Output...</div>
+                <div onclick="printOutput()" data-i18n="printOutput">Print Output...</div>
             </div>
         </div>
 
         <!-- EDIT -->
-        <div class="menu-item" onclick="toggleMenu('edit-menu')">Edit
+        <div class="menu-item" onclick="toggleMenu('edit-menu', event)"><span data-i18n="edit">Edit</span>
             <div id="edit-menu" class="dropdown-menu">
-                <div onclick="undo()">Undo <span>Ctrl+Z</span></div>
-                <div onclick="redo()">Redo <span>Ctrl+Y</span></div>
+                <div onclick="undo()"><span data-i18n="undo">Undo</span> <span>Ctrl+Z</span></div>
+                <div onclick="redo()"><span data-i18n="redo">Redo</span> <span>Ctrl+Y</span></div>
                 <div class="dropdown-divider"></div>
-                <div onclick="insertCase()">Insert Case</div>
-                <div onclick="insertVariable()">Insert Variable</div>
-                <div onclick="deleteSelectedCase()">Delete Selected Case</div>
-                <div onclick="deleteSelectedVar()">Delete Selected Variable</div>
+                <div onclick="insertCase()" data-i18n="insertCase">Insert Case</div>
+                <div onclick="insertVariable()" data-i18n="insertVar">Insert Variable</div>
+                <div onclick="deleteSelectedCase()" data-i18n="deleteCase">Delete Selected Case</div>
+                <div onclick="deleteSelectedVar()" data-i18n="deleteVar">Delete Selected Variable</div>
                 <div class="dropdown-divider"></div>
-                <div onclick="openFindReplaceModal()">Find & Replace...</div>
-                <div onclick="clearSelected()">Clear Cell Value</div>
-                <div onclick="clearDataset()">Clear Dataset</div>
+                <div onclick="openFindReplaceModal()" data-i18n="findReplace">Find & Replace...</div>
+                <div onclick="clearSelected()" data-i18n="clearCell">Clear Cell Value</div>
+                <div onclick="clearDataset()" data-i18n="clearDataset">Clear Dataset</div>
             </div>
         </div>
 
         <!-- VIEW -->
-        <div class="menu-item" onclick="toggleMenu('view-menu')">View
+        <div class="menu-item" onclick="toggleMenu('view-menu', event)"><span data-i18n="view">View</span>
             <div id="view-menu" class="dropdown-menu">
-                <div onclick="toggleValueLabels()"><span id="chk-labels">✓</span> Value Labels</div>
-                <div onclick="switchTab('data')">Data View</div>
-                <div onclick="switchTab('variable')">Variable View</div>
-                <div onclick="switchTab('output')">Output Viewer</div>
-                <div onclick="switchTab('syntax')">Syntax Editor</div>
+                <div onclick="toggleValueLabels()"><span id="chk-labels">✓</span> <span data-i18n="valueLabels">Value Labels</span></div>
+                <div onclick="switchTab('data')" data-i18n="dataView">Data View</div>
+                <div onclick="switchTab('variable')" data-i18n="variableView">Variable View</div>
+                <div onclick="switchTab('output')" data-i18n="outputViewer">Output Viewer</div>
+                <div onclick="switchTab('syntax')" data-i18n="syntaxEditor">Syntax Editor</div>
             </div>
         </div>
 
         <!-- DATA -->
-        <div class="menu-item" onclick="toggleMenu('data-menu')">Data
+        <div class="menu-item" onclick="toggleMenu('data-menu', event)"><span data-i18n="data">Data</span>
             <div id="data-menu" class="dropdown-menu">
-                <div onclick="openSortDlg()">Sort Cases...</div>
-                <div onclick="transposeDataset()">Transpose Dataset</div>
-                <div onclick="openAggregateDlg()">Aggregate...</div>
-                <div onclick="selectCasesDlg()">Select Cases...</div>
-                <div onclick="openSplitFileDlg()">Split File...</div>
+                <div onclick="openSortDlg()" data-i18n="sortCases">Sort Cases...</div>
+                <div onclick="transposeDataset()" data-i18n="transposeDataset">Transpose Dataset</div>
+                <div onclick="openAggregateDlg()" data-i18n="aggregate">Aggregate...</div>
+                <div onclick="selectCasesDlg()" data-i18n="selectCases">Select Cases...</div>
+                <div onclick="openSplitFileDlg()" data-i18n="splitFile">Split File...</div>
             </div>
         </div>
 
         <!-- TRANSFORM -->
-        <div class="menu-item" onclick="toggleMenu('transform-menu')">Transform
+        <div class="menu-item" onclick="toggleMenu('transform-menu', event)"><span data-i18n="transform">Transform</span>
             <div id="transform-menu" class="dropdown-menu">
-                <div onclick="computeDlg()">Compute Variable...</div>
-                <div onclick="openRecodeDlg()">Recode Into Same/New Variable...</div>
-                <div onclick="openCountOccurrencesDlg()">Count Occurrences...</div>
+                <div onclick="computeDlg()" data-i18n="computeVar">Compute Variable...</div>
+                <div onclick="openRecodeDlg()" data-i18n="recodeVar">Recode Into Same/New Variable...</div>
+                <div onclick="openCountOccurrencesDlg()" data-i18n="countOccurrences">Count Occurrences...</div>
             </div>
         </div>
 
         <!-- ANALYZE -->
-        <div class="menu-item" onclick="toggleMenu('analyze-menu')">Analyze
+        <div class="menu-item" onclick="toggleMenu('analyze-menu', event)"><span data-i18n="analyze">Analyze</span>
             <div id="analyze-menu" class="dropdown-menu">
-                <div onclick="openAnalysisDlg('frequencies')">Descriptive Statistics -> Frequencies...</div>
-                <div onclick="openAnalysisDlg('descriptives')">Descriptive Statistics -> Descriptives...</div>
-                <div onclick="openAnalysisDlg('crosstabs')">Descriptive Statistics -> Crosstabs...</div>
+                <div onclick="openAnalysisDlg('frequencies')" data-i18n="frequencies">Descriptive Statistics -> Frequencies...</div>
+                <div onclick="openAnalysisDlg('descriptives')" data-i18n="descriptives">Descriptive Statistics -> Descriptives...</div>
+                <div onclick="openAnalysisDlg('crosstabs')" data-i18n="crosstabs">Descriptive Statistics -> Crosstabs...</div>
                 <div class="dropdown-divider"></div>
-                <div onclick="openAnalysisDlg('onesamplettest')">Compare Means -> One-Sample T-Test...</div>
-                <div onclick="openAnalysisDlg('ttest')">Compare Means -> Independent-Samples T-Test...</div>
-                <div onclick="openAnalysisDlg('anova')">Compare Means -> One-Way ANOVA...</div>
+                <div onclick="openAnalysisDlg('onesamplettest')" data-i18n="onesamplettest">Compare Means -> One-Sample T-Test...</div>
+                <div onclick="openAnalysisDlg('ttest')" data-i18n="ttest">Compare Means -> Independent-Samples T-Test...</div>
+                <div onclick="openAnalysisDlg('anova')" data-i18n="anova">Compare Means -> One-Way ANOVA...</div>
                 <div class="dropdown-divider"></div>
-                <div onclick="openAnalysisDlg('correlation')">Correlate -> Bivariate...</div>
-                <div onclick="openAnalysisDlg('regression')">Regression -> Linear...</div>
-                <div onclick="openAnalysisDlg('nonparametric')">Nonparametric -> Chi-Square Test...</div>
+                <div onclick="openAnalysisDlg('correlation')" data-i18n="correlation">Correlate -> Bivariate...</div>
+                <div onclick="openAnalysisDlg('regression')" data-i18n="regression">Regression -> Linear...</div>
+                <div onclick="openAnalysisDlg('nonparametric')" data-i18n="nonparametric">Nonparametric -> Chi-Square Test...</div>
             </div>
         </div>
 
         <!-- GRAPHS -->
-        <div class="menu-item" onclick="toggleMenu('graphs-menu')">Graphs
+        <div class="menu-item" onclick="toggleMenu('graphs-menu', event)"><span data-i18n="graphs">Graphs</span>
             <div id="graphs-menu" class="dropdown-menu">
-                <div onclick="openGraphDlg('bar')">Bar Chart...</div>
-                <div onclick="openGraphDlg('line')">Line Chart...</div>
-                <div onclick="openGraphDlg('pie')">Pie Chart...</div>
-                <div onclick="openGraphDlg('histogram')">Histogram...</div>
-                <div onclick="openGraphDlg('scatter')">Scatterplot...</div>
+                <div onclick="openGraphDlg('bar')" data-i18n="barChart">Bar Chart...</div>
+                <div onclick="openGraphDlg('line')" data-i18n="lineChart">Line Chart...</div>
+                <div onclick="openGraphDlg('pie')" data-i18n="pieChart">Pie Chart...</div>
+                <div onclick="openGraphDlg('histogram')" data-i18n="histogram">Histogram...</div>
+                <div onclick="openGraphDlg('scatter')" data-i18n="scatterplot">Scatterplot...</div>
             </div>
         </div>
 
         <!-- UTILITIES -->
-        <div class="menu-item" onclick="toggleMenu('utilities-menu')">Utilities
+        <div class="menu-item" onclick="toggleMenu('utilities-menu', event)"><span data-i18n="utilities">Utilities</span>
             <div id="utilities-menu" class="dropdown-menu">
-                <div onclick="openVariablesInfoModal()">Variables Information</div>
-                <div onclick="toggleValueLabels()">Toggle Value Labels</div>
+                <div onclick="openVariablesInfoModal()" data-i18n="varInfo">Variables Information</div>
+                <div onclick="toggleValueLabels()" data-i18n="toggleLabels">Toggle Value Labels</div>
+            </div>
+        </div>
+
+        <!-- LANGUAGE -->
+        <div class="menu-item" onclick="toggleMenu('lang-menu', event)"><span data-i18n="language">Language</span>
+            <div id="lang-menu" class="dropdown-menu">
+                <div onclick="setLanguage('en')">English</div>
+                <div onclick="setLanguage('es')">Español</div>
+                <div onclick="setLanguage('pt')">Português (Brasil)</div>
             </div>
         </div>
 
         <!-- HELP -->
-        <div class="menu-item" onclick="toggleMenu('help-menu')">Help
+        <div class="menu-item" onclick="toggleMenu('help-menu', event)"><span data-i18n="help">Help</span>
             <div id="help-menu" class="dropdown-menu">
-                <div onclick="openSyntaxRefModal()">Syntax Reference Guide</div>
-                <div onclick="alert('GNU PSPP Web Edition v2.0\nFully client-side JavaScript implementation.')">About WebPSPP</div>
+                <div onclick="openSyntaxRefModal()" data-i18n="syntaxRef">Syntax Reference Guide</div>
+                <div onclick="window.open('https://github.com/rafaelcastrocouto/pspp_web', '_blank')" data-i18n="githubRepo">GitHub Repository</div>
+                <div onclick="alert('GNU PSPP Web Edition v2.0\nFully client-side JavaScript implementation.')" data-i18n="about">About WebPSPP</div>
             </div>
         </div>
     </div>
@@ -517,15 +534,15 @@
                 <thead>
                     <tr>
                         <th class="row-header">#</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Width</th>
-                        <th>Decimals</th>
-                        <th>Label</th>
-                        <th>Value Labels</th>
-                        <th>Missing</th>
-                        <th>Align</th>
-                        <th>Measure</th>
+                        <th data-i18n="thName">Name</th>
+                        <th data-i18n="thType">Type</th>
+                        <th data-i18n="thWidth">Width</th>
+                        <th data-i18n="thDecimals">Decimals</th>
+                        <th data-i18n="thLabel">Label</th>
+                        <th data-i18n="thValLabels">Value Labels</th>
+                        <th data-i18n="thMissing">Missing</th>
+                        <th data-i18n="thAlign">Align</th>
+                        <th data-i18n="thMeasure">Measure</th>
                     </tr>
                 </thead>
                 <tbody id="var-tbody">
@@ -537,24 +554,24 @@
         <!-- 3. OUTPUT VIEWER -->
         <div id="view-output" class="output-container" style="display:none;">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 class="text-xl font-bold text-gray-800">PSPP Output Viewer</h2>
+                <h2 class="text-xl font-bold text-gray-800" data-i18n="outputHeader">PSPP Output Viewer</h2>
                 <div class="flex gap-2">
-                    <button class="px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700" onclick="exportOutputHTML()">Export Output</button>
-                    <button class="px-3 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700" onclick="clearOutput()">Clear Output</button>
+                    <button class="px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700" onclick="exportOutputHTML()" data-i18n="exportOutputBtn">Export Output</button>
+                    <button class="px-3 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700" onclick="clearOutput()" data-i18n="clearOutputBtn">Clear Output</button>
                 </div>
             </div>
             <div id="output-content">
-                <div class="text-gray-500 italic">No output generated yet. Run an analysis or graph procedure.</div>
+                <div class="text-gray-500 italic" data-i18n="noOutput">No output generated yet. Run an analysis or graph procedure.</div>
             </div>
         </div>
 
         <!-- 4. SYNTAX EDITOR -->
         <div id="view-syntax" class="p-4 flex flex-col h-full bg-gray-50" style="display:none;">
             <div class="mb-2 flex justify-between items-center">
-                <span class="font-bold text-gray-700">PSPP Syntax Editor</span>
+                <span class="font-bold text-gray-700" data-i18n="syntaxEditorHeader">PSPP Syntax Editor</span>
                 <div>
-                    <button class="px-4 py-1 bg-green-600 text-white rounded text-xs font-bold hover:bg-green-700 mr-2" onclick="runSyntax()">Run Commands</button>
-                    <button class="px-3 py-1 bg-gray-200 border rounded text-xs hover:bg-gray-300" onclick="clearSyntax()">Clear Syntax</button>
+                    <button class="px-4 py-1 bg-green-600 text-white rounded text-xs font-bold hover:bg-green-700 mr-2" onclick="runSyntax()" data-i18n="runSyntax">Run Commands</button>
+                    <button class="px-3 py-1 bg-gray-200 border rounded text-xs hover:bg-gray-300" onclick="clearSyntax()" data-i18n="clearSyntax">Clear Syntax</button>
                 </div>
             </div>
             <textarea id="syntax-code" class="flex-1 w-full p-3 font-mono text-sm border rounded shadow-inner outline-none focus:ring-2 focus:ring-blue-500" spellcheck="false" placeholder="Type PSPP syntax commands here...&#10;&#10;DESCRIPTIVES VARIABLES=age salary.&#10;FREQUENCIES VARIABLES=gender jobcat.&#10;CROSSTABS /TABLES=gender BY jobcat.&#10;CORRELATIONS VARIABLES=age salary satisfaction.&#10;REGRESSION /DEPENDENT=salary /METHOD=ENTER age.&#10;COMPUTE total_score = age + 10.&#10;SORT CASES BY salary (D)."></textarea>
@@ -563,14 +580,14 @@
 
     <!-- BOTTOM TAB BUTTONS & STATUS BAR -->
     <div class="view-tab-buttons">
-        <button class="tab-btn active" id="btn-tab-data" onclick="switchTab('data')">Data View</button>
-        <button class="tab-btn" id="btn-tab-var" onclick="switchTab('variable')">Variable View</button>
-        <button class="tab-btn" id="btn-tab-out" onclick="switchTab('output')">Output Viewer</button>
-        <button class="tab-btn" id="btn-tab-syn" onclick="switchTab('syntax')">Syntax</button>
+        <button class="tab-btn active" id="btn-tab-data" onclick="switchTab('data')" data-i18n="tabData">Data View</button>
+        <button class="tab-btn" id="btn-tab-var" onclick="switchTab('variable')" data-i18n="tabVar">Variable View</button>
+        <button class="tab-btn" id="btn-tab-out" onclick="switchTab('output')" data-i18n="tabOut">Output Viewer</button>
+        <button class="tab-btn" id="btn-tab-syn" onclick="switchTab('syntax')" data-i18n="tabSyn">Syntax</button>
     </div>
 
     <div class="status-bar">
-        <span id="status-text">PSPP Processor is ready.</span>
+        <span id="status-text" data-i18n="statusReady">PSPP Processor is ready.</span>
         <span id="status-counts">Cases: 0 | Vars: 0</span>
     </div>
 
@@ -589,7 +606,7 @@
             </div>
             <div class="shuttle-box">
                 <div class="flex-1 flex flex-col">
-                    <span class="text-xs mb-1 font-semibold">Source Variables:</span>
+                    <span class="text-xs mb-1 font-semibold" data-i18n="srcVars">Source Variables:</span>
                     <div id="shuttle-source" class="shuttle-list"></div>
                 </div>
                 <div class="shuttle-controls">
@@ -597,7 +614,7 @@
                     <button class="px-2 py-1 bg-gray-200 border text-xs font-bold rounded" onclick="shuttleMove(false)">⬅</button>
                 </div>
                 <div class="flex-1 flex flex-col">
-                    <span class="text-xs mb-1 font-semibold" id="shuttle-target-label">Selected Variables:</span>
+                    <span class="text-xs mb-1 font-semibold" id="shuttle-target-label" data-i18n="tgtVars">Selected Variables:</span>
                     <div id="shuttle-target" class="shuttle-list"></div>
                 </div>
             </div>
@@ -607,7 +624,7 @@
 
             <div class="bg-gray-100 px-3 py-2 border-t flex justify-end gap-2">
                 <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs font-semibold hover:bg-blue-700" onclick="executeCurrentAnalysis()">OK</button>
-                <button class="px-4 py-1 bg-gray-300 rounded text-xs hover:bg-gray-400" onclick="closeModal('dlg-analysis')">Cancel</button>
+                <button class="px-4 py-1 bg-gray-300 rounded text-xs hover:bg-gray-400" onclick="closeModal('dlg-analysis')" data-i18n="btnCancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -621,22 +638,22 @@
             </div>
             <div class="p-3 flex flex-col gap-2">
                 <div class="flex gap-2 items-center">
-                    <span class="w-12 text-xs">Value:</span>
+                    <span class="w-12 text-xs" data-i18n="lblValue">Value:</span>
                     <input type="text" id="val-key" class="border px-2 py-1 text-xs rounded flex-1">
                 </div>
                 <div class="flex gap-2 items-center">
-                    <span class="w-12 text-xs">Label:</span>
+                    <span class="w-12 text-xs" data-i18n="lblLabel">Label:</span>
                     <input type="text" id="val-label" class="border px-2 py-1 text-xs rounded flex-1">
                 </div>
                 <div class="flex gap-2 justify-end my-1">
-                    <button class="px-3 py-1 bg-green-600 text-white rounded text-xs" onclick="addValueLabel()">Add / Change</button>
-                    <button class="px-3 py-1 bg-red-600 text-white rounded text-xs" onclick="removeValueLabel()">Remove</button>
+                    <button class="px-3 py-1 bg-green-600 text-white rounded text-xs" onclick="addValueLabel()" data-i18n="btnAddChange">Add / Change</button>
+                    <button class="px-3 py-1 bg-red-600 text-white rounded text-xs" onclick="removeValueLabel()" data-i18n="btnRemove">Remove</button>
                 </div>
-                <div class="text-xs font-semibold mt-1">Existing Labels:</div>
+                <div class="text-xs font-semibold mt-1" data-i18n="existingLabels">Existing Labels:</div>
                 <select id="val-list" size="5" class="border p-1 text-xs rounded"></select>
             </div>
             <div class="bg-gray-100 px-3 py-2 border-t flex justify-end">
-                <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs" onclick="closeModal('dlg-value-labels')">Done</button>
+                <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs" onclick="closeModal('dlg-value-labels')" data-i18n="btnDone">Done</button>
             </div>
         </div>
     </div>
@@ -645,22 +662,22 @@
     <div id="dlg-compute" class="modal-overlay">
         <div class="pspp-dialog">
             <div class="dialog-title">
-                <span>Compute Variable</span>
+                <span data-i18n="computeVar">Compute Variable</span>
                 <button onclick="closeModal('dlg-compute')" class="text-white">✕</button>
             </div>
             <div class="p-3 flex flex-col gap-3">
                 <div class="flex gap-2 items-center">
-                    <span class="text-xs font-bold w-28">Target Variable:</span>
+                    <span class="text-xs font-bold w-28" data-i18n="targetVar">Target Variable:</span>
                     <input type="text" id="compute-target" class="border px-2 py-1 text-xs rounded flex-1" placeholder="e.g. salary_bonus">
                 </div>
                 <div class="flex flex-col gap-1">
-                    <span class="text-xs font-bold">Numeric Expression (e.g. salary * 1.10, SQRT(age), age + 5):</span>
+                    <span class="text-xs font-bold" data-i18n="numericExpr">Numeric Expression (e.g. salary * 1.10, SQRT(age), age + 5):</span>
                     <textarea id="compute-expr" class="border p-2 text-xs font-mono rounded h-20"></textarea>
                 </div>
             </div>
             <div class="bg-gray-100 px-3 py-2 border-t flex justify-end gap-2">
                 <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs" onclick="executeCompute()">OK</button>
-                <button class="px-4 py-1 bg-gray-300 rounded text-xs" onclick="closeModal('dlg-compute')">Cancel</button>
+                <button class="px-4 py-1 bg-gray-300 rounded text-xs" onclick="closeModal('dlg-compute')" data-i18n="btnCancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -669,22 +686,22 @@
     <div id="dlg-find-replace" class="modal-overlay">
         <div class="pspp-dialog" style="width: 380px;">
             <div class="dialog-title">
-                <span>Find and Replace</span>
+                <span data-i18n="findReplace">Find and Replace</span>
                 <button onclick="closeModal('dlg-find-replace')" class="text-white">✕</button>
             </div>
             <div class="p-3 flex flex-col gap-3">
                 <div class="flex gap-2 items-center">
-                    <span class="text-xs font-bold w-20">Find:</span>
+                    <span class="text-xs font-bold w-20" data-i18n="findLabel">Find:</span>
                     <input type="text" id="find-val" class="border px-2 py-1 text-xs rounded flex-1">
                 </div>
                 <div class="flex gap-2 items-center">
-                    <span class="text-xs font-bold w-20">Replace:</span>
+                    <span class="text-xs font-bold w-20" data-i18n="replaceLabel">Replace:</span>
                     <input type="text" id="replace-val" class="border px-2 py-1 text-xs rounded flex-1">
                 </div>
             </div>
             <div class="bg-gray-100 px-3 py-2 border-t flex justify-end gap-2">
-                <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs" onclick="executeFindReplace()">Replace All</button>
-                <button class="px-4 py-1 bg-gray-300 rounded text-xs" onclick="closeModal('dlg-find-replace')">Cancel</button>
+                <button class="px-4 py-1 bg-blue-600 text-white rounded text-xs" onclick="executeFindReplace()" data-i18n="replaceAll">Replace All</button>
+                <button class="px-4 py-1 bg-gray-300 rounded text-xs" onclick="closeModal('dlg-find-replace')" data-i18n="btnCancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -693,7 +710,7 @@
     <div id="dlg-sample-datasets" class="modal-overlay">
         <div class="pspp-dialog" style="width: 400px;">
             <div class="dialog-title">
-                <span>Select Sample Dataset</span>
+                <span data-i18n="sampleDatasets">Select Sample Dataset</span>
                 <button onclick="closeModal('dlg-sample-datasets')" class="text-white">✕</button>
             </div>
             <div class="p-4 flex flex-col gap-2">
@@ -711,6 +728,131 @@
 
     <!-- APPLICATION LOGIC ENGINE -->
     <script>
+        // --- TRANSLATION DICTIONARIES (EN, ES, PT-BR) ---
+        const translations = {
+            en: {
+                file: "File", edit: "Edit", view: "View", data: "Data", transform: "Transform", analyze: "Analyze", graphs: "Graphs", utilities: "Utilities", language: "Language", help: "Help",
+                newDataset: "New Dataset", openFile: "Open File (CSV/JSON)...", sampleDatasets: "Sample Datasets...", saveCSV: "Save Data (CSV)", saveJSON: "Save Data (JSON)",
+                exportHTML: "Export Output (HTML)", printOutput: "Print Output...", undo: "Undo", redo: "Redo", insertCase: "Insert Case", insertVar: "Insert Variable",
+                deleteCase: "Delete Selected Case", deleteVar: "Delete Selected Variable", findReplace: "Find & Replace...", clearCell: "Clear Cell Value", clearDataset: "Clear Dataset",
+                valueLabels: "Value Labels", dataView: "Data View", variableView: "Variable View", outputViewer: "Output Viewer", syntaxEditor: "Syntax Editor", sortCases: "Sort Cases...",
+                transposeDataset: "Transpose Dataset", aggregate: "Aggregate...", selectCases: "Select Cases...", splitFile: "Split File...", computeVar: "Compute Variable...",
+                recodeVar: "Recode Into Same/New Variable...", countOccurrences: "Count Occurrences...", frequencies: "Descriptive Statistics -> Frequencies...",
+                descriptives: "Descriptive Statistics -> Descriptives...", crosstabs: "Descriptive Statistics -> Crosstabs...", onesamplettest: "Compare Means -> One-Sample T-Test...",
+                ttest: "Compare Means -> Independent-Samples T-Test...", anova: "Compare Means -> One-Way ANOVA...", correlation: "Correlate -> Bivariate...", regression: "Regression -> Linear...",
+                nonparametric: "Nonparametric -> Chi-Square Test...", barChart: "Bar Chart...", lineChart: "Line Chart...", pieChart: "Pie Chart...", histogram: "Histogram...", scatterplot: "Scatterplot...",
+                varInfo: "Variables Information", toggleLabels: "Toggle Value Labels", syntaxRef: "Syntax Reference Guide", githubRepo: "GitHub Repository", about: "About WebPSPP",
+                thName: "Name", thType: "Type", thWidth: "Width", thDecimals: "Decimals", thLabel: "Label", thValLabels: "Value Labels", thMissing: "Missing", thAlign: "Align", thMeasure: "Measure",
+                outputHeader: "PSPP Output Viewer", exportOutputBtn: "Export Output", clearOutputBtn: "Clear Output", noOutput: "No output generated yet. Run an analysis or graph procedure.",
+                syntaxEditorHeader: "PSPP Syntax Editor", runSyntax: "Run Commands", clearSyntax: "Clear Syntax", tabData: "Data View", tabVar: "Variable View", tabOut: "Output Viewer", tabSyn: "Syntax",
+                statusReady: "PSPP Processor is ready.", srcVars: "Source Variables:", tgtVars: "Selected Variables:", btnCancel: "Cancel", lblValue: "Value:", lblLabel: "Label:",
+                btnAddChange: "Add / Change", btnRemove: "Remove", existingLabels: "Existing Labels:", btnDone: "Done", targetVar: "Target Variable:",
+                numericExpr: "Numeric Expression (e.g. salary * 1.10, SQRT(age), age + 5):", findLabel: "Find:", replaceLabel: "Replace:", replaceAll: "Replace All",
+                syntaxPlaceholder: "Type PSPP syntax commands here...\n\nDESCRIPTIVES VARIABLES=age salary.\nFREQUENCIES VARIABLES=gender jobcat.\nCROSSTABS /TABLES=gender BY jobcat.\nCORRELATIONS VARIABLES=age salary satisfaction.\nREGRESSION /DEPENDENT=salary /METHOD=ENTER age.\nCOMPUTE total_score = age + 10.\nSORT CASES BY salary (D)."
+            },
+            es: {
+                file: "Archivo", edit: "Editar", view: "Ver", data: "Datos", transform: "Transformar", analyze: "Analizar", graphs: "Gráficos", utilities: "Utilidades", language: "Idioma", help: "Ayuda",
+                newDataset: "Nuevo conjunto de datos", openFile: "Abrir archivo (CSV/JSON)...", sampleDatasets: "Conjuntos de datos de muestra...", saveCSV: "Guardar datos (CSV)", saveJSON: "Guardar datos (JSON)",
+                exportHTML: "Exportar resultados (HTML)", printOutput: "Imprimir resultados...", undo: "Deshacer", redo: "Rehacer", insertCase: "Insertar caso", insertVar: "Insertar variable",
+                deleteCase: "Eliminar caso seleccionado", deleteVar: "Eliminar variable seleccionada", findReplace: "Buscar y reemplazar...", clearCell: "Limpiar valor de celda", clearDataset: "Limpiar conjunto de datos",
+                valueLabels: "Etiquetas de valor", dataView: "Vista de datos", variableView: "Vista de variables", outputViewer: "Visor de resultados", syntaxEditor: "Editor de sintaxis", sortCases: "Ordenar casos...",
+                transposeDataset: "Transponer conjunto de datos", aggregate: "Agregar...", selectCases: "Seleccionar casos...", splitFile: "Dividir archivo...", computeVar: "Calcular variable...",
+                recodeVar: "Recodificar en misma/nueva variable...", countOccurrences: "Contar apariciones...", frequencies: "Estadísticos descriptivos -> Frecuencias...",
+                descriptives: "Estadísticos descriptivos -> Descriptivos...", crosstabs: "Estadísticos descriptivos -> Crosstabs...", onesamplettest: "Comparar medias -> Prueba T para una muestra...",
+                ttest: "Comparar medias -> Prueba T para muestras independientes...", anova: "Comparar medias -> ANOVA de un factor...", correlation: "Correlacionar -> Bivariada...", regression: "Regresión -> Lineal...",
+                nonparametric: "No paramétrica -> Prueba de Chi-cuadrado...", barChart: "Gráfico de barras...", lineChart: "Gráfico de líneas...", pieChart: "Gráfico circular...", histogram: "Histograma...", scatterplot: "Gráfico de dispersión...",
+                varInfo: "Información de variables", toggleLabels: "Alternar etiquetas de valor", syntaxRef: "Guía de referencia de sintaxis", githubRepo: "Repositorio de GitHub", about: "Acerca de WebPSPP",
+                thName: "Nombre", thType: "Tipo", thWidth: "Anchura", thDecimals: "Decimales", thLabel: "Etiqueta", thValLabels: "Etq. de valor", thMissing: "Perdidos", thAlign: "Alineación", thMeasure: "Medida",
+                outputHeader: "Visor de Resultados PSPP", exportOutputBtn: "Exportar Resultados", clearOutputBtn: "Limpiar Resultados", noOutput: "No se han generado resultados todavía. Ejecute un procedimiento de análisis o gráfico.",
+                syntaxEditorHeader: "Editor de Sintaxis PSPP", runSyntax: "Ejecutar Comandos", clearSyntax: "Limpiar Sintaxis", tabData: "Vista de datos", tabVar: "Vista de variables", tabOut: "Visor de resultados", tabSyn: "Sintaxis",
+                statusReady: "El procesador PSPP está listo.", srcVars: "Variables de origen:", tgtVars: "Variables seleccionadas:", btnCancel: "Cancelar", lblValue: "Valor:", lblLabel: "Etiqueta:",
+                btnAddChange: "Añadir / Cambiar", btnRemove: "Eliminar", existingLabels: "Etiquetas existentes:", btnDone: "Hecho", targetVar: "Variable de destino:",
+                numericExpr: "Expresión numérica (ej. salary * 1.10, SQRT(age), age + 5):", findLabel: "Buscar:", replaceLabel: "Reemplazar:", replaceAll: "Reemplazar todo",
+                syntaxPlaceholder: "Escribe comandos de sintaxis PSPP aquí...\n\nDESCRIPTIVES VARIABLES=age salary.\nFREQUENCIES VARIABLES=gender jobcat.\nCROSSTABS /TABLES=gender BY jobcat.\nCORRELATIONS VARIABLES=age salary satisfaction.\nREGRESSION /DEPENDENT=salary /METHOD=ENTER age.\nCOMPUTE total_score = age + 10.\nSORT CASES BY salary (D)."
+            },
+            pt: {
+                file: "Arquivo", edit: "Editar", view: "Exibir", data: "Dados", transform: "Transformar", analyze: "Analisar", graphs: "Gráficos", utilities: "Utilitários", language: "Idioma", help: "Ajuda",
+                newDataset: "Novo Conjunto de Dados", openFile: "Abrir Arquivo (CSV/JSON)...", sampleDatasets: "Conjuntos de Dados de Exemplo...", saveCSV: "Salvar Dados (CSV)", saveJSON: "Salvar Dados (JSON)",
+                exportHTML: "Exportar Saída (HTML)", printOutput: "Imprimir Saída...", undo: "Desfazer", redo: "Refazer", insertCase: "Inserir Caso", insertVar: "Inserir Variável",
+                deleteCase: "Excluir Caso Selecionado", deleteVar: "Excluir Variável Selecionada", findReplace: "Localizar e Substituir...", clearCell: "Limpar Valor da Célula", clearDataset: "Limpar Conjunto de Dados",
+                valueLabels: "Rótulos de Valor", dataView: "Visualização de Dados", variableView: "Visualização de Variáveis", outputViewer: "Visualizador de Saída", syntaxEditor: "Editor de Sintaxe", sortCases: "Classificar Casos...",
+                transposeDataset: "Transpor Conjunto de Dados", aggregate: "Agregar...", selectCases: "Selecionar Casos...", splitFile: "Dividir Arquivo...", computeVar: "Calcular Variável...",
+                recodeVar: "Recodificar na Mesma/Nova Variável...", countOccurrences: "Contar Ocorrências...", frequencies: "Estatísticas Descritivas -> Frequências...",
+                descriptives: "Estatísticas Descritivas -> Descritivas...", crosstabs: "Estatísticas Descritivas -> Tabulação Cruzada...", onesamplettest: "Comparar Médias -> Teste T para Uma Amostra...",
+                ttest: "Comparar Médias -> Teste T para Amostras Independentes...", anova: "Comparar Médias -> ANOVA de Único Fator...", correlation: "Correlacionar -> Bivariada...", regression: "Regressão -> Linear...",
+                nonparametric: "Não Paramétrica -> Teste Qui-Quadrado...", barChart: "Gráfico de Barras...", lineChart: "Gráfico de Linhas...", pieChart: "Gráfico de Pizza...", histogram: "Histograma...", scatterplot: "Gráfico de Dispersão...",
+                varInfo: "Informações das Variáveis", toggleLabels: "Alternar Rótulos de Valor", syntaxRef: "Guia de Referência de Sintaxe", githubRepo: "Repositório GitHub", about: "Sobre o WebPSPP",
+                thName: "Nome", thType: "Tipo", thWidth: "Largura", thDecimals: "Decimais", thLabel: "Rótulo", thValLabels: "Rótulos de Valor", thMissing: "Omissos", thAlign: "Alinhamento", thMeasure: "Medida",
+                outputHeader: "Visualizador de Saída PSPP", exportOutputBtn: "Exportar Saída", clearOutputBtn: "Limpar Saída", noOutput: "Nenhuma saída gerada ainda. Execute uma análise ou procedimento gráfico.",
+                syntaxEditorHeader: "Editor de Sintaxe PSPP", runSyntax: "Executar Comandos", clearSyntax: "Limpar Sintaxe", tabData: "Visualização de Dados", tabVar: "Visualização de Variáveis", tabOut: "Visualizador de Saída", tabSyn: "Sintaxe",
+                statusReady: "O processador PSPP está pronto.", srcVars: "Variáveis de Origem:", tgtVars: "Variáveis Selecionadas:", btnCancel: "Cancelar", lblValue: "Valor:", lblLabel: "Rótulo:",
+                btnAddChange: "Adicionar / Alterar", btnRemove: "Remover", existingLabels: "Rótulos Existentes:", btnDone: "Concluído", targetVar: "Variável de Destino:",
+                numericExpr: "Expressão Numérica (ex: salary * 1.10, SQRT(age), age + 5):", findLabel: "Localizar:", replaceLabel: "Substituir:", replaceAll: "Substituir Tudo",
+                syntaxPlaceholder: "Digite os comandos de sintaxe do PSPP aqui...\n\nDESCRIPTIVES VARIABLES=age salary.\nFREQUENCIES VARIABLES=gender jobcat.\nCROSSTABS /TABLES=gender BY jobcat.\nCORRELATIONS VARIABLES=age salary satisfaction.\nREGRESSION /DEPENDENT=salary /METHOD=ENTER age.\nCOMPUTE total_score = age + 10.\nSORT CASES BY salary (D)."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const dict = translations[lang] || translations.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerText = dict[key];
+                }
+            });
+            const syntaxCode = document.getElementById('syntax-code');
+            if (syntaxCode && dict.syntaxPlaceholder) {
+                syntaxCode.placeholder = dict.syntaxPlaceholder;
+            }
+            showToast(lang === 'pt' ? 'Idioma alterado para Português (Brasil)' : lang === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English');
+        }
+
+        function toggleMenu(menuId, event) {
+            if (event) event.stopPropagation();
+            const menus = document.querySelectorAll('.dropdown-menu');
+            menus.forEach(m => {
+                if (m.id !== menuId) m.classList.remove('show');
+            });
+            const target = document.getElementById(menuId);
+            if (target) target.classList.toggle('show');
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+        });
+
+        function switchTab(tab) {
+            const views = {
+                data: document.getElementById('view-data'),
+                variable: document.getElementById('view-variable'),
+                output: document.getElementById('view-output'),
+                syntax: document.getElementById('view-syntax')
+            };
+
+            const btns = {
+                data: document.getElementById('btn-tab-data'),
+                variable: document.getElementById('btn-tab-var'),
+                output: document.getElementById('btn-tab-out'),
+                syntax: document.getElementById('btn-tab-syn')
+            };
+
+            Object.keys(views).forEach(k => {
+                if (views[k]) views[k].style.display = (k === tab) ? 'block' : 'none';
+                if (btns[k]) {
+                    if (k === tab) btns[k].classList.add('active');
+                    else btns[k].classList.remove('active');
+                }
+            });
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        }
+
         // --- DATA ARCHITECTURE & STATE ---
         let variables = [];
         let dataset = [];
@@ -727,6 +869,13 @@
             toast.innerText = msg;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function toggleValueLabels() {
+            showValueLabels = !showValueLabels;
+            document.getElementById('chk-labels').innerText = showValueLabels ? '✓' : '';
+            renderDataView();
+            showToast(showValueLabels ? 'Value labels enabled' : 'Value labels disabled');
         }
 
         function saveState() {
@@ -819,6 +968,7 @@
             const headerRow = document.createElement('tr');
             const cornerTh = document.createElement('th');
             cornerTh.className = 'row-header';
+            cornerTh.innerText = '#';
             headerRow.appendChild(cornerTh);
 
             variables.forEach((v, colIdx) => {
@@ -1313,6 +1463,19 @@
             switchTab('output');
         }
 
+        function appendToOutput(html) {
+            const content = document.getElementById('output-content');
+            if (content.innerHTML.includes('No output generated yet')) {
+                content.innerHTML = '';
+            }
+            content.innerHTML += html;
+        }
+
+        function clearOutput() {
+            document.getElementById('output-content').innerHTML = '<div class="text-gray-500 italic" data-i18n="noOutput">No output generated yet. Run an analysis or graph procedure.</div>';
+            showToast('Output cleared');
+        }
+
         // --- STATISTICAL PROCEDURES ENGINE ---
         function getNumericValues(varName) {
             return dataset.map(row => Number(row[varName])).filter(v => !isNaN(v) && v !== null && v !== undefined);
@@ -1587,7 +1750,7 @@
         // --- GRAPH PROCEDURES ---
         function openGraphDlg(type) {
             activeGraphType = type;
-            openAnalysisDlg('frequencies'); // Reuse shuttle modal for variables select
+            openAnalysisDlg('frequencies');
         }
 
         // --- GRAPH RENDERING (CANVAS) ---
@@ -1759,9 +1922,9 @@
             }
         }
 
-        // --- FILE EXPORT / IMPORT ---
+        // --- FILE EXPORT / IMPORT / PRINT ---
         function exportCSV() {
-            if (dataset.length === 0) return;
+            if (dataset.length === 0) return showToast('Dataset is empty');
             const headers = variables.map(v => v.name).join(',');
             const rows = dataset.map(row => variables.map(v => row[v.name] ?? '').join(','));
             const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
@@ -1803,18 +1966,20 @@
                     dataset = parsed.dataset || [];
                 } else {
                     const lines = content.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-                    variables = headers.map(h => ({ name: h, type: 'Numeric', width: 8, decimals: 2, label: h, values: {}, align: 'Right', measure: 'Scale' }));
-                    dataset = [];
-                    for (let i = 1; i < lines.length; i++) {
-                        const vals = lines[i].split(',');
-                        const row = {};
-                        headers.forEach((h, idx) => {
-                            let val = vals[idx] ? vals[idx].replace(/"/g, '').trim() : null;
-                            if (val !== null && !isNaN(val) && val !== '') val = Number(val);
-                            row[h] = val;
-                        });
-                        dataset.push(row);
+                    if (lines.length > 0) {
+                        const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+                        variables = headers.map(h => ({ name: h, type: 'Numeric', width: 8, decimals: 2, label: h, values: {}, align: 'Right', measure: 'Scale' }));
+                        dataset = [];
+                        for (let i = 1; i < lines.length; i++) {
+                            const vals = lines[i].split(',');
+                            const row = {};
+                            headers.forEach((h, idx) => {
+                                let val = vals[idx] ? vals[idx].replace(/"/g, '').trim() : null;
+                                if (val !== null && !isNaN(val) && val !== '') val = Number(val);
+                                row[h] = val;
+                            });
+                            dataset.push(row);
+                        }
                     }
                 }
                 refreshAll();
@@ -1825,70 +1990,20 @@
 
         function exportOutputHTML() {
             const content = document.getElementById('output-content').innerHTML;
-            const blob = new Blob([`<html><head><title>PSPP Output</title><style>body{font-family:sans-serif;padding:20px;} table{border-collapse:collapse;margin:10px 0;} td,th{border:1px solid #000;padding:4px 8px;}</style></head><body>${content}</body></html>`], { type: 'text/html' });
-            const link = document.createElement("a");
+            const fullHtml = `<!DOCTYPE html><html><head><title>PSPP Output Export</title><style>body{font-family:sans-serif;padding:20px;}.spv-table{border-collapse:collapse;margin:12px 0;}.spv-table th,.spv-table td{border:1px solid #000;padding:4px 8px;text-align:right;}.spv-table th{background:#eee;}.spv-title{font-weight:bold;font-size:16px;color:#1a365d;margin-top:20px;border-bottom:2px solid #1a365d;}</style></head><body>${content}</body></html>`;
+            const blob = new Blob([fullHtml], { type: 'text/html' });
+            const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = "pspp_output.html";
+            link.download = 'pspp_output.html';
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             showToast('Output exported to HTML');
-        }
-
-        function appendToOutput(html) {
-            const out = document.getElementById('output-content');
-            if (out.innerHTML.includes('No output generated yet')) out.innerHTML = '';
-            const block = document.createElement('div');
-            block.className = 'mb-6 border-b pb-4';
-            block.innerHTML = html;
-            out.appendChild(block);
-        }
-
-        function clearOutput() {
-            document.getElementById('output-content').innerHTML = '<div class="text-gray-500 italic">No output generated yet.</div>';
-            showToast('Output cleared');
         }
 
         function printOutput() {
             switchTab('output');
             window.print();
-        }
-
-        // --- MENU & UI HELPERS ---
-        function toggleMenu(menuId) {
-            document.querySelectorAll('.dropdown-menu').forEach(el => {
-                if (el.id !== menuId) el.style.display = 'none';
-            });
-            const menu = document.getElementById(menuId);
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        }
-
-        window.onclick = function(e) {
-            if (!e.target.matches('.menu-item')) {
-                document.querySelectorAll('.dropdown-menu').forEach(el => el.style.display = 'none');
-            }
-        };
-
-        function switchTab(tabName) {
-            document.getElementById('view-data').style.display = tabName === 'data' ? 'block' : 'none';
-            document.getElementById('view-variable').style.display = tabName === 'variable' ? 'block' : 'none';
-            document.getElementById('view-output').style.display = tabName === 'output' ? 'block' : 'none';
-            document.getElementById('view-syntax').style.display = tabName === 'syntax' ? 'flex' : 'none';
-
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (tabName === 'data') document.getElementById('btn-tab-data').classList.add('active');
-            if (tabName === 'variable') document.getElementById('btn-tab-var').classList.add('active');
-            if (tabName === 'output') document.getElementById('btn-tab-out').classList.add('active');
-            if (tabName === 'syntax') document.getElementById('btn-tab-syn').classList.add('active');
-        }
-
-        function toggleValueLabels() {
-            showValueLabels = !showValueLabels;
-            document.getElementById('chk-labels').innerText = showValueLabels ? '✓' : '';
-            renderDataView();
-            showToast(`Value Labels: ${showValueLabels ? 'ON' : 'OFF'}`);
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
         }
 
         // --- INITIALIZATION ---
